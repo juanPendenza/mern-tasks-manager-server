@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register, login } from "../controllers/auth.controller.js";
+import { register, login, logout } from "../controllers/auth.controller.js";
 
 // le estamos diciendo que "router" es una ruta que puede recibir peticiones
 export const authRouter = Router();
@@ -8,3 +8,5 @@ export const authRouter = Router();
 authRouter.post("/register", register);
 // cuando hacen un post a /login ejecuta la función login
 authRouter.post("/login", login);
+// cuando hacen un post a /logout ejecuta la función logout
+authRouter.post("/logout", logout);
