@@ -66,3 +66,17 @@ export const logout = (req, res) => {
   res.cookie("token", "", { expires: new Date(0) });
   res.sendStatus(200);
 };
+
+// función que verifica si un usuario está autenticado
+export const profile = async (req, res) => {
+  // busco el usuario por id
+  const foundUser = await User.findById(req.user.id);
+  // si el usuario no existe respondo con error
+  if (!foundUser) return res.status(400).json({ message: "User not found" });
+  // si el usuario existe respondo con sus datos
+  res.json({
+    id: foundUser.id,
+    username: foundUser.username,
+    email: foundUser.email,
+  });
+};

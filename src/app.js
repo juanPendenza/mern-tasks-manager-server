@@ -2,6 +2,8 @@
 import express from "express";
 import morgan from "morgan";
 import { authRouter } from "./routes/auth.routes.js";
+import cookieParser from "cookie-parser";
+import { tasksRouter } from "./routes/tasks.routes.js";
 
 // en esta línea creo el servidor
 const app = express();
@@ -13,8 +15,12 @@ app.use(morgan("dev"));
 // es para poder parsear los cuerpos de las peticiones
 app.use(express.json());
 
+// es para parsear las cookies y poder leerlas (parecido al express.json())
+app.use(cookieParser());
+
 // le digo a express que use el router
 app.use("/api", authRouter);
+app.use("/api", tasksRouter);
 
 // exporto app para poder usarlo en el index
 export default app;
