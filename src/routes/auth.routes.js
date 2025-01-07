@@ -1,9 +1,9 @@
 import { Router } from "express";
 import {
-  register,
-  login,
-  logout,
-  profile,
+  postRegister,
+  postLogin,
+  postLogout,
+  getProfile,
 } from "../controllers/auth.controller.js";
 import { validateToken } from "../middlewares/validateToken.js";
 
@@ -11,10 +11,10 @@ import { validateToken } from "../middlewares/validateToken.js";
 export const authRouter = Router();
 
 // cuando hacen un post a /register ejecuta la función register
-authRouter.post("/register", register);
+authRouter.post("/register", postRegister);
 // cuando hacen un post a /login ejecuta la función login
-authRouter.post("/login", login);
+authRouter.post("/login", postLogin);
 // cuando hacen un post a /logout ejecuta la función logout
-authRouter.post("/logout", logout);
+authRouter.post("/logout", postLogout);
 // cuando hacen un get a /profile ejecuta la función validateToken, y si está logeado ejecuta profile
-authRouter.get("/profile", validateToken, profile);
+authRouter.get("/profile", validateToken, getProfile);

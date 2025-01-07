@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { createAccessToken } from "../utils/jwt.js";
 
 // función que registra un nuevo usuario
-export const register = async (req, res) => {
+export const postRegister = async (req, res) => {
   // recibo los datos de la petición
   const { username, email, password } = req.body;
   try {
@@ -33,7 +33,7 @@ export const register = async (req, res) => {
 };
 
 // función que logea un usuario
-export const login = async (req, res) => {
+export const postLogin = async (req, res) => {
   // recibo los datos de la petición
   const { email, password } = req.body;
   try {
@@ -62,13 +62,13 @@ export const login = async (req, res) => {
 };
 
 // función que cierra cesión
-export const logout = (req, res) => {
+export const postLogout = (req, res) => {
   res.cookie("token", "", { expires: new Date(0) });
-  res.sendStatus(200);
+  return res.sendStatus(200);
 };
 
 // función que verifica si un usuario está autenticado
-export const profile = async (req, res) => {
+export const getProfile = async (req, res) => {
   // busco el usuario por id
   const foundUser = await User.findById(req.user.id);
   // si el usuario no existe respondo con error
