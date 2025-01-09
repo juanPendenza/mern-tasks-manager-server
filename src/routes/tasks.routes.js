@@ -7,6 +7,8 @@ import {
   getTasks,
   updateTask,
 } from "../controllers/tasks.controller.js";
+import { createTaskSchema } from "../schemas/task.schema.js";
+import { validateSchema } from "../middlewares/zodValidator.middleware.js";
 
 // le estamos diciendo que "tasksRouter" es una ruta que puede recibir peticiones
 export const tasksRouter = Router();
@@ -18,7 +20,12 @@ tasksRouter.get("/tasks", validateToken, getTasks);
 // obtiene una tarea por su id
 tasksRouter.get("/tasks/:id", validateToken, getTask);
 // añade una nueva tarea
-tasksRouter.post("/tasks", validateToken, createTask);
+tasksRouter.post(
+  "/tasks",
+  validateToken,
+  validateSchema(createTaskSchema),
+  createTask
+);
 // edita una tarea por su id
 tasksRouter.put("/tasks/:id", validateToken, updateTask);
 // elimina una tarea por su id

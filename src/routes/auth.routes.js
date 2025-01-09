@@ -6,15 +6,17 @@ import {
   getProfile,
 } from "../controllers/auth.controller.js";
 import { validateToken } from "../middlewares/validateToken.js";
+import { validateSchema } from "../middlewares/zodValidator.middleware.js";
+import { loginSchema, registerSchema } from "../schemas/auth.schema.js";
 
 // le estamos diciendo que "authRouter" es una ruta que puede recibir peticiones
 export const authRouter = Router();
 
-// cuando hacen un post a /register ejecuta la función register
-authRouter.post("/register", postRegister);
-// cuando hacen un post a /login ejecuta la función login
-authRouter.post("/login", postLogin);
-// cuando hacen un post a /logout ejecuta la función logout
+// registra un usuario
+authRouter.post("/register", validateSchema(registerSchema), postRegister);
+// logea un usuario
+authRouter.post("/login", validateSchema(loginSchema), postLogin);
+// deslogea un usuario
 authRouter.post("/logout", postLogout);
-// cuando hacen un get a /profile ejecuta la función validateToken, y si está logeado ejecuta profile
+// muestra el perfil de un usuario
 authRouter.get("/profile", validateToken, getProfile);
