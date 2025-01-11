@@ -4,9 +4,14 @@ import morgan from "morgan";
 import { authRouter } from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import { tasksRouter } from "./routes/tasks.routes.js";
+import cors from "cors";
 
 // en esta línea creo el servidor
 const app = express();
+
+// le digo que use cors para que no haya problema al trabajar con distintos puerto en el front y back
+// y le digo que solo pueda hacerlo con el 5173
+app.use(cors({ origin: "http://localhost:5173" }));
 
 // morgan es un módulo que me ayuda a ver las peticiones que van llegando al backend
 // se lo llama "loger", y nos muestra por consola las peticiones que van llegando
