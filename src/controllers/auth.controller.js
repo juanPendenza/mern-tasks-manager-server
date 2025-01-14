@@ -7,6 +7,9 @@ export const postRegister = async (req, res) => {
   // recibo los datos de la petición
   const { username, email, password } = req.body;
   try {
+    // buscamos si el usuario ya existe o no
+    const foundedUser = await User.findOne({ email });
+    if (foundedUser) return res.status(400).json(["The email alredy exists"]);
     // hasheo la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
     // instacio el modelo "User" creado con mongoose
