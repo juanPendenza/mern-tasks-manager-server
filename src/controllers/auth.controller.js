@@ -43,12 +43,11 @@ export const postLogin = async (req, res) => {
     // busco el usuario por su email
     const foundUser = await User.findOne({ email: { $all: email } });
     // si no encuentra el usuario te avisa
-    if (!foundUser) return res.status(400).send({ message: "User not found" });
+    if (!foundUser) return res.status(400).send(["User not found"]);
     // comparo la contraseña que ingresa con la del usuario encontrado
     const isMatch = await bcrypt.compare(password, foundUser.password);
     // si las contraseñas no coinciden te avisa
-    if (!isMatch)
-      return res.status(400).send({ message: "Incorrect password" });
+    if (!isMatch) return res.status(400).send(["Incorrect password"]);
     // creo un token para el nuevo usuario que contiene su id
     const token = await createAccessToken({ id: foundUser._id });
     // creo una cookie con el token
