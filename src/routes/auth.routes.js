@@ -4,6 +4,7 @@ import {
   postLogin,
   postLogout,
   getProfile,
+  verifyToken,
 } from "../controllers/auth.controller.js";
 import { validateToken } from "../middlewares/validateToken.js";
 import { validateSchema } from "../middlewares/zodValidator.middleware.js";
@@ -20,3 +21,5 @@ authRouter.post("/login", validateSchema(loginSchema), postLogin);
 authRouter.post("/logout", postLogout);
 // muestra el perfil de un usuario
 authRouter.get("/profile", validateToken, getProfile);
+// comprueba que el token enviado desde el cliente sea correcto
+authRouter.get("/verify", verifyToken);

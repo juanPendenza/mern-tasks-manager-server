@@ -1,6 +1,8 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { createAccessToken } from "../utils/jwt.js";
+import jwt from "jsonwebtoken";
+import { SECRET_ACCESS_TOKEN } from "../config.js";
 
 // función que registra un nuevo usuario
 export const postRegister = async (req, res) => {
@@ -67,6 +69,29 @@ export const postLogin = async (req, res) => {
 export const postLogout = (req, res) => {
   res.cookie("token", "", { expires: new Date(0) });
   return res.sendStatus(200);
+};
+
+// función que verifica el token enviado desde el cliente
+export const verifyToken = async (req, res) => {
+  // traigo el token que guarde en las cookies
+  const { token } = req.cookies;
+  // si el token no existe le digo al usuario que no está autenticado
+  if (!token) return res.status(400).send({ message: "Unauthorized" });
+  // si existe el token verifico si coincide con el de la db
+  jwt.verify(token, SECRET_ACCESS_TOKEN, async (err, decodedToken) => {
+    // si no coincide le digo al usuario que no está autenticado
+    if (err) return res.status(400).send({ message: "Unauthorized" });
+    // si coincide busco al usuario con el id que hay guardado en el token
+    const foundedUser = await User.findById(decodedToken.id);
+    // si no encuentra ningun usuario es porque el token coincide pero no existe el usuario en la db
+    if (!foundedUser) return res.status(400).send({ message: "Unauthorized" });
+    // si el usuario existe y su token coincide, respondo con sus datos
+    return res.json({
+      id: foundedUser._id,
+      username: foundedUser.username,
+      email: foundedUser.email,
+    });
+  });
 };
 
 // función que verifica si un usuario está autenticado
