@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-import { SECRET_ACCESS_TOKEN } from "../config.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 // el token es como un pase que se usa para validar si un usuario tiene autenticación para hacer cierta operación
 // en este caso le digo a jwt que me cree un token que dentro guarde el id de la persona
@@ -8,7 +9,7 @@ export function createAccessToken(payload) {
   return new Promise((resolve, reject) => {
     jwt.sign(
       payload, // lo que quiero guardar dentro del token
-      SECRET_ACCESS_TOKEN, // clave de acceso
+      process.env.SECRET_ACCESS_TOKEN, // clave de acceso
       { expiresIn: "1d" }, // fecha de expiración
       (err, token) => {
         if (err) reject(err);
