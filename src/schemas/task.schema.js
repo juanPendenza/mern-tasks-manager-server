@@ -1,5 +1,5 @@
 // ACA VAN LAS VALIDACIONES HECHAS CON ZOD PARA LAS TAREAS
-import { datetimeRegex, z } from "zod";
+import { z } from "zod";
 
 // esquema para crear tareas
 export const createTaskSchema = z.object({
