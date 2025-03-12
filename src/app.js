@@ -12,7 +12,7 @@ const app = express();
 // le digo que use cors para que no haya problema al trabajar con distintos puerto en el front y back
 app.use(
   cors({
-    origin: "http://localhost:5173", // solo puede hacerlo con el 5173
+    origin: process.env.FRONTEND_URL, // solo puede hacerlo con el 5173
     credentials: true, // pata que se puedan establecer las cookies
   })
 );
