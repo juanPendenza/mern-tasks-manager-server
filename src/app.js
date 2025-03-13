@@ -5,6 +5,7 @@ import { authRouter } from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import { tasksRouter } from "./routes/tasks.routes.js";
 import cors from "cors";
+import { FRONTEND_URL } from "../config.js";
 
 // en esta línea creo el servidor
 const app = express();
@@ -12,7 +13,7 @@ const app = express();
 // le digo que use cors para que no haya problema al trabajar con distintos puerto en el front y back
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // solo puede hacerlo con el 5173
+    origin: FRONTEND_URL, // solo puede hacerlo con el 5173
     credentials: true, // pata que se puedan establecer las cookies
   })
 );
