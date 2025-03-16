@@ -29,8 +29,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // le digo a express que use el router
-app.use("/api", authRouter);
-app.use("/api", tasksRouter);
+app.use(authRouter);
+app.use(tasksRouter);
 
 // exporto app para poder usarlo en el index
 export default app;
