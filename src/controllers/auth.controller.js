@@ -8,6 +8,8 @@ import { SECRET_ACCESS_TOKEN } from "../../config.js";
 
 // función que registra un nuevo usuario
 export const postRegister = async (req, res) => {
+  console.log("Peticion recibida", req.body);
+
   // recibo los datos de la petición
   const { username, email, password } = req.body;
   try {
