@@ -58,7 +58,10 @@ export const postLogin = async (req, res) => {
     // creo un token para el nuevo usuario que contiene su id
     const token = await createAccessToken({ id: foundUser._id });
     // creo una cookie con el token
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true, // impide el acceso al token desde el cliente
+      maxAge: 86400000, // 1 día,
+    });
     // respuesta del servidor al cliente
     res.json({
       id: foundUser._id,
