@@ -7,6 +7,7 @@ import { SECRET_ACCESS_TOKEN } from "../../config.js";
 export const validateToken = (req, res, next) => {
   // traigo el toquen que está guardado en la cookie
   const token = req.cookies.token;
+  console.log("Token recibido: ", token);
   // si el token no existe respondo con msj de error
   if (!token)
     return res.status(401).send({ message: "No token, authorization denied" });
