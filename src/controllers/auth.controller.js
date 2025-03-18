@@ -30,7 +30,7 @@ export const postRegister = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // impide el acceso al token desde el cliente
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
-      maxAge: 86400000, // 1 día,
+      sameSite: "none", // Necesario para que funcione en dominios diferentes
     });
     // respuesta del servidor al cliente
     res.json({
@@ -62,7 +62,7 @@ export const postLogin = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true, // impide el acceso al token desde el cliente
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
-      maxAge: 86400000, // 1 día,
+      sameSite: "none", // Necesario para que funcione en dominios diferentes
     });
     // respuesta del servidor al cliente
     res.json({
