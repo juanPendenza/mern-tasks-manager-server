@@ -28,8 +28,8 @@ export const postRegister = async (req, res) => {
     const token = await createAccessToken({ id: savedUser._id });
     // creo una cookie con el token
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // impide el acceso al token desde el cliente
+      httpOnly: true, // impide el acceso al token desde el cliente
+      secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       maxAge: 86400000, // 1 día,
     });
     // respuesta del servidor al cliente
@@ -60,8 +60,8 @@ export const postLogin = async (req, res) => {
     const token = await createAccessToken({ id: foundUser._id });
     // creo una cookie con el token
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // impide el acceso al token desde el cliente
+      httpOnly: true, // impide el acceso al token desde el cliente
+      secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       maxAge: 86400000, // 1 día,
     });
     // respuesta del servidor al cliente
