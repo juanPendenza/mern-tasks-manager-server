@@ -8,8 +8,6 @@ import { SECRET_ACCESS_TOKEN } from "../../config.js";
 
 // función que registra un nuevo usuario
 export const postRegister = async (req, res) => {
-  console.log("Peticion recibida", req.body);
-
   // recibo los datos de la petición
   const { username, email, password } = req.body;
   try {
@@ -29,7 +27,10 @@ export const postRegister = async (req, res) => {
     // creo un token para el nuevo usuario que contiene su id
     const token = await createAccessToken({ id: savedUser._id });
     // creo una cookie con el token
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true, // impide el acceso al token desde el cliente
+      maxAge: 86400000, // 1 día,
+    });
     // respuesta del servidor al cliente
     res.json({
       id: savedUser._id,
