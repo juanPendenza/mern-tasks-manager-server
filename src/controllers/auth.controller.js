@@ -31,6 +31,7 @@ export const postRegister = async (req, res) => {
       httpOnly: true, // impide el acceso al token desde el cliente
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       sameSite: "none", // Necesario para que funcione en dominios diferentes
+      maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
     });
     // respuesta del servidor al cliente
     res.json({
@@ -63,6 +64,7 @@ export const postLogin = async (req, res) => {
       httpOnly: true, // impide el acceso al token desde el cliente
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       sameSite: "none", // Necesario para que funcione en dominios diferentes
+      maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
     });
     // respuesta del servidor al cliente
     res.json({
