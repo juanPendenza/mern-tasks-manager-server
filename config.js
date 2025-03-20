@@ -1,9 +1,8 @@
 import * as dotenv from "dotenv";
 dotenv.config();
-
+// mongodb+srv://juanpablopendenza22:5B4gEIpHA3Dy9Ogg@cluster0.kw9gd.mongodb.net/mern-tasks-manager-db
 export const MONGO_URI =
-  process.env.MONGO_URI ||
-  "mongodb+srv://juanpablopendenza22:5B4gEIpHA3Dy9Ogg@cluster0.kw9gd.mongodb.net/mern-tasks-manager-db";
+  process.env.MONGO_URI || "mongodb://localhost/mern-tasks-manager-db";
 
 export const SECRET_ACCESS_TOKEN =
   process.env.SECRET_ACCESS_TOKEN || "secret123";
