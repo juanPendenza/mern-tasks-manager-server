@@ -32,7 +32,7 @@ export const postRegister = async (req, res) => {
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       sameSite: "none", // Necesario para que funcione en dominios diferentes
       path: "/",
-      // domain: BACKEND_URL,
+      domain: ".onrender.com",
     });
     // respuesta del servidor al cliente
     res.json({
@@ -66,7 +66,7 @@ export const postLogin = async (req, res) => {
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       sameSite: "none", // Necesario para que funcione en dominios diferentes
       path: "/",
-      // domain: BACKEND_URL,
+      domain: ".onrender.com",
     });
     // respuesta del servidor al cliente
     res.json({
