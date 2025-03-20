@@ -2,7 +2,7 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { createAccessToken } from "../utils/jwt.js";
 import jwt from "jsonwebtoken";
-import { SECRET_ACCESS_TOKEN } from "../../config.js";
+import { BACKEND_URL, SECRET_ACCESS_TOKEN } from "../../config.js";
 // import * as dotenv from "dotenv";
 // dotenv.config();
 
@@ -28,10 +28,11 @@ export const postRegister = async (req, res) => {
     const token = await createAccessToken({ id: savedUser._id });
     // creo una cookie con el token
     res.cookie("token", token, {
-      httpOnly: true, // impide el acceso al token desde el cliente
+      /* httpOnly: true, // impide el acceso al token desde el cliente
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       sameSite: "none", // Necesario para que funcione en dominios diferentes
-      // maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
+      maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración */
+      domain: BACKEND_URL,
     });
     // respuesta del servidor al cliente
     res.json({
@@ -61,10 +62,11 @@ export const postLogin = async (req, res) => {
     const token = await createAccessToken({ id: foundUser._id });
     // creo una cookie con el token
     res.cookie("token", token, {
-      httpOnly: true, // impide el acceso al token desde el cliente
+      /* httpOnly: true, // impide el acceso al token desde el cliente
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       sameSite: "none", // Necesario para que funcione en dominios diferentes
-      // maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
+      maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración */
+      domain: BACKEND_URL,
     });
     // respuesta del servidor al cliente
     res.json({
