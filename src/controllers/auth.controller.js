@@ -27,13 +27,16 @@ export const postRegister = async (req, res) => {
     // creo un token para el nuevo usuario que contiene su id
     const token = await createAccessToken({ id: savedUser._id });
     // creo una cookie con el token
-    res.cookie("token", token, {
+    res.cookie(
+      "token",
+      token /* {
       httpOnly: true, // impide el acceso al token desde el cliente
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       sameSite: "none", // Necesario para que funcione en dominios diferentes
       path: "/",
       domain: ".onrender.com",
-    });
+    } */
+    );
     // respuesta del servidor al cliente
     res.json({
       id: savedUser._id,
@@ -61,13 +64,16 @@ export const postLogin = async (req, res) => {
     // creo un token para el nuevo usuario que contiene su id
     const token = await createAccessToken({ id: foundUser._id });
     // creo una cookie con el token
-    res.cookie("token", token, {
+    res.cookie(
+      "token",
+      token /* {
       httpOnly: true, // impide el acceso al token desde el cliente
       secure: process.env.NODE_ENV === "production", // Asegura que solo se envíe en HTTPS en producción
       sameSite: "none", // Necesario para que funcione en dominios diferentes
       path: "/",
       domain: ".onrender.com",
-    });
+    } */
+    );
     // respuesta del servidor al cliente
     res.json({
       id: foundUser._id,
